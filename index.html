@@ -35,12 +35,14 @@
   input:checked ~ .pic { opacity:.45; }
   .empty { background:var(--card); border-radius:14px; padding:18px; color:var(--muted); }
   .note { color:var(--muted); font-size:14px; margin-top:16px; }
+  .credit { color:var(--muted); font-size:12px; margin:-8px 0 12px; }
   button { margin-top:16px; background:transparent; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:8px 16px; font:inherit; }
 </style>
 </head>
 <body>
 <main>
   <img class="hero" id="hero" alt="" hidden>
+  <p class="credit" id="credit" hidden></p>
   <div class="brand">CookAlong</div>
   <h1 id="title">Shopping list</h1>
   <p class="sub" id="sub"></p>
@@ -87,11 +89,22 @@
   if (recipeId && /^[a-z0-9-]{1,80}$/.test(recipeId)) {
     var hero = document.getElementById("hero");
     var base = (data && data.img ? data.img : "images/") + recipeId;
-    var tries = [".png", ".jpg"]; // illustrated dishes are .png, imported photos are .jpg
+    var tries = [".jpg", ".png"]; // photos are .jpg, illustrations .png
     hero.onload = function () { hero.hidden = false; };
     hero.onerror = function () { if (tries.length) hero.src = base + tries.shift(); else hero.hidden = true; };
     hero.alt = title || "";
     hero.src = base + tries.shift();
+
+    // Photo credit (required for Creative Commons photos): injected by the TV, or credits.json when hosted.
+    var showCredit = function (text) {
+      if (!text) return;
+      var el = document.getElementById("credit");
+      el.textContent = "Photo: " + text;
+      el.hidden = false;
+    };
+    if (data) showCredit(data.credit);
+    else if (window.fetch) fetch("credits.json").then(function (r) { return r.ok ? r.json() : {}; })
+      .then(function (c) { showCredit(c[recipeId]); }).catch(function () {});
   }
 
   if (title) { document.getElementById("title").textContent = title; document.title = title + " · CookAlong"; }
