@@ -54,13 +54,17 @@
 (function () {
   // Picture for an ingredient line, by keyword. First match wins, so specific words come before general ones.
   var ICONS = [
-    [/chocolate|cocoa/, "🍫"], [/coconut/, "🥥"], [/spaghetti|pasta|noodle/, "🍝"], [/garlic/, "🧄"],
-    [/lemon|lime/, "🍋"], [/parmesan|cheese/, "🧀"], [/chil/, "🌶️"], [/bell pepper/, "🫑"],
-    [/salt/, "🧂"], [/spring onion|scallion|onion/, "🧅"], [/tomato/, "🍅"], [/spinach|lettuce|kale/, "🥬"],
-    [/chickpea|bean|lentil/, "🥫"], [/pea|carrot/, "🥕"], [/egg/, "🥚"], [/butter|ghee/, "🧈"],
-    [/chicken/, "🍗"], [/potato/, "🥔"], [/banana/, "🍌"], [/milk|cream/, "🥛"], [/rice/, "🍚"],
-    [/flour/, "🌾"], [/sugar/, "🍬"], [/stock|broth/, "🍲"], [/soy|sesame/, "🥢"], [/oil/, "🫒"],
-    [/parsley|cilantro|basil|herb|mint/, "🌿"], [/ginger|curry|turmeric|paprika|spice|powder|masala/, "🥄"]
+    [/chocolate|cocoa/, "🍫"], [/coconut/, "🥥"], [/spaghetti|pasta|noodle/, "🍝"], [/avocado/, "🥑"],
+    [/shrimp|prawn/, "🦐"], [/mango/, "🥭"], [/cucumber/, "🥒"], [/tortilla|chips/, "🌮"], [/\bice\b/, "🧊"],
+    [/garlic/, "🧄"], [/lemon|lime/, "🍋"], [/parmesan|cheese|feta|paneer/, "🧀"], [/chil|jalape/, "🌶️"],
+    [/bell pepper/, "🫑"], [/salt/, "🧂"], [/spring onion|scallion|onion/, "🧅"], [/tomato/, "🍅"],
+    [/spinach|lettuce|kale/, "🥬"], [/curry leaves|bay leaf|fenugreek|methi/, "🌿"],
+    [/stock|broth/, "🍲"], [/dal\b|lentil/, "🥣"], [/chickpea/, "🥫"], [/vegetable|pea|carrot/, "🥕"], [/bean/, "🥫"], [/egg/, "🥚"],
+    [/butter|ghee/, "🧈"], [/chicken/, "🍗"], [/potato/, "🥔"], [/banana/, "🍌"],
+    [/milk|cream|yogurt/, "🥛"], [/rice/, "🍚"], [/flour|semolina|rava/, "🌾"], [/sugar/, "🍬"],
+    [/soy|sesame/, "🥢"], [/olive/, "🫒"], [/vinegar/, "🍶"], [/water/, "💧"], [/oil/, "🫒"],
+    [/parsley|cilantro|basil|herb|mint|oregano/, "🌿"],
+    [/ginger|curry|turmeric|paprika|spice|powder|masala|cumin|cardamom|cinnamon|clove|mustard|urad/, "🥄"]
   ];
   function iconFor(text) {
     var t = text.toLowerCase();
