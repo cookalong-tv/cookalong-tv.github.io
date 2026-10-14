@@ -86,10 +86,12 @@
   // Dish picture: only for well-formed ids (the fragment is untrusted input); hidden if the file is missing.
   if (recipeId && /^[a-z0-9-]{1,80}$/.test(recipeId)) {
     var hero = document.getElementById("hero");
+    var base = (data && data.img ? data.img : "images/") + recipeId;
+    var tries = [".png", ".jpg"]; // illustrated dishes are .png, imported photos are .jpg
     hero.onload = function () { hero.hidden = false; };
-    hero.onerror = function () { hero.hidden = true; };
+    hero.onerror = function () { if (tries.length) hero.src = base + tries.shift(); else hero.hidden = true; };
     hero.alt = title || "";
-    hero.src = (data && data.img ? data.img : "images/") + recipeId + ".png";
+    hero.src = base + tries.shift();
   }
 
   if (title) { document.getElementById("title").textContent = title; document.title = title + " · CookAlong"; }
